@@ -1,0 +1,52 @@
+table Lines
+	lineageTag: 4cad64b7-f799-409f-b3f3-a611654ecc88
+
+	column LineID
+		dataType: string
+		lineageTag: a376d3e0-4bd1-4ba4-b37c-c28543ad2039
+		summarizeBy: none
+		sourceColumn: LineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LineName
+		dataType: string
+		lineageTag: 3c604318-e5d5-4557-9cc9-2a6726c75e63
+		summarizeBy: none
+		sourceColumn: LineName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 5dee4add-ae9f-425e-8988-f889c65dcd89
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Building
+		dataType: string
+		lineageTag: fcc18b40-3985-4889-ae83-c993fc2d30f6
+		summarizeBy: none
+		sourceColumn: Building
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Lines = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\Lines.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"LineID", type text}, {"LineName", type text}, {"Department", type text}, {"Building", type text}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Changed Type1",{{"Building", Text.Clean, type text}, {"Department", Text.Clean, type text}, {"LineName", Text.Clean, type text}, {"LineID", Text.Clean, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Cleaned Text",{{"Building", Text.Trim, type text}, {"Department", Text.Trim, type text}, {"LineName", Text.Trim, type text}, {"LineID", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

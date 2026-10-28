@@ -1,0 +1,9 @@
+ProductID,ProductName,ProductFamily,StandardPrice,StandardCost
+PR101,Valve Body A,Valves,42.0,18.5
+PR102,Valve Body B,Valves ,55.0,24.0
+PR201,Gas Delivery Module,Modules,310.0,165.0
+PR202,Weldment Assembly,Modules ,185.0,96.0
+PR301,Manifold Block,Machined Parts,68.0,31.0
+PR302,Precision Fitting,Machined Parts,9.5,3.8
+PR401,Chamber Liner,Cleaned Parts ,120.0,52.0
+PR402,Showerhead Plate,Cleaned Parts,210.0,98.0

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Plant Production Performance"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "417cdb5f-3cc3-43e9-9bc8-85200f2ba59b"
+  }
+}

@@ -1,0 +1,67 @@
+table _Measures
+	lineageTag: f488ec75-8756-46e3-a22d-bad1ab1e3aaf
+
+	measure 'Units Produced' = SUM(Production[UnitsProduced])
+		formatString: 0
+		lineageTag: e33402c3-3df4-402e-b533-287a61637d6e
+
+	measure 'Scrap Units' = SUM(Production[ScrapUnits])
+		formatString: 0
+		lineageTag: c73fb8ee-e94d-4650-98d1-231d5ff9c49b
+
+	measure 'Good Units' = [Units Produced] - [Scrap Units]
+		formatString: 0
+		lineageTag: 9121703f-fb70-4c02-9fe4-dbd25056ce33
+
+	measure 'Target Good Units' = SUM(Targets[TargetGoodUnits])
+		lineageTag: 1de25183-fa37-4462-b5c8-6b2f0af65b90
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'vs Target %' = DIVIDE([Good Units], [Target Good Units]) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cb563973-b932-47a8-8c1e-b6eae4c864c1
+
+	measure 'Downtime Hrs' = DIVIDE(SUM(Downtime[Minutes]), 60)
+		lineageTag: d738b0b5-55d1-4891-8ef0-89789164829c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Scrap Rate %' = DIVIDE([Scrap Units], [Units Produced])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8c28af72-4774-44b2-9147-d5b9fdf125ca
+
+	measure 'Production Cost' = SUMX(Production, Production[UnitsProduced] * RELATED(Products[StandardCost]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: bd0ef7d6-0a6e-44bf-9234-a58a1fa60e1c
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Availability = DIVIDE(SUM(Production[RunMinutes]), SUM(Production[PlannedMinutes]))
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: abc8c3f0-1d3a-4e5c-bbca-3516f66ec3a5
+
+	measure Performance = DIVIDE(SUMX(Production, Production[UnitsProduced] / Production[IdealRatePerHour] * 60), SUM(Production[RunMinutes]))
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d781335f-02de-43e1-82c2-dda2fbd43073
+
+	measure Quality = DIVIDE([Good Units], [Units Produced])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8fb73559-f727-4dee-8502-ca958cfd6e94
+
+	measure OEE = [Availability] * [Performance] * [Quality]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3fe37c4f-8ccf-4765-8e14-5612eff20e39
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

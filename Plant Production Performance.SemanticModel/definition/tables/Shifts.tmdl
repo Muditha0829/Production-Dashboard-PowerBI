@@ -1,0 +1,36 @@
+table Shifts
+	lineageTag: 579b01f1-31dc-43dc-a306-d940829bb429
+
+	column Shift
+		dataType: string
+		lineageTag: 9ecb13be-d5c1-462c-816e-1279760c8994
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours
+		dataType: string
+		lineageTag: fef3f9f3-18b1-4a9b-9124-29f4f3828fd4
+		summarizeBy: none
+		sourceColumn: Hours
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Shifts = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset"),
+				    #"C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\_Shifts csv" = Source{[#"Folder Path"="C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\",Name="Shifts.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\_Shifts csv",[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Imported CSV",{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Shift", type text}, {"Hours", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

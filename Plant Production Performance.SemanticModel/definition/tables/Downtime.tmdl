@@ -1,0 +1,75 @@
+table Downtime
+	lineageTag: 947ebd6c-7087-40bb-9c55-89d3fe5dbcbb
+
+	column DowntimeID
+		dataType: string
+		lineageTag: 9cb5900d-6078-4c07-b2f2-d8a5556464ab
+		summarizeBy: none
+		sourceColumn: DowntimeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 831ccdb3-fc62-42f1-97a8-9788d30a2249
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LineID
+		dataType: string
+		lineageTag: 0d17ccb8-72a3-4f67-99c8-cdf052a2aa11
+		summarizeBy: none
+		sourceColumn: LineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shift
+		dataType: string
+		lineageTag: 48bae908-7413-4cd4-b5af-73c2b9785fd0
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reason
+		dataType: string
+		lineageTag: e0aa06a9-8f6c-4223-ae40-71998f05743b
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minutes
+		dataType: int64
+		formatString: 0
+		lineageTag: 96cb376d-36cc-48eb-9501-6e638ec5f380
+		summarizeBy: sum
+		sourceColumn: Minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Downtime = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\Downtime.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DowntimeID", type text}, {"Date", type date}, {"LineID", type text}, {"Shift", type text}, {"Reason", type text}, {"Minutes", Int64.Type}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Changed Type",{{"Reason", Text.Clean, type text}, {"Shift", Text.Clean, type text}, {"LineID", Text.Clean, type text}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Cleaned Text"),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Duplicates",{{"Reason", Text.Trim, type text}, {"Shift", Text.Trim, type text}, {"LineID", Text.Trim, type text}}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Trimmed Text", {{"Date", type text}}, "en-US"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type with Locale",{{"Date", type date}}),
+				    #"Changed Type with Locale1" = Table.TransformColumnTypes(#"Changed Type1", {{"Date", type date}}, "en-US")
+				in
+				    #"Changed Type with Locale1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

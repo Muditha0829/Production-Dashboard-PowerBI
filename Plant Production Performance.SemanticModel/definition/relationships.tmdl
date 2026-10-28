@@ -1,0 +1,36 @@
+relationship AutoDetected_3389d174-3b65-4dd2-aad6-7c96eb153be0
+	fromColumn: Downtime.Shift
+	toColumn: Shifts.Shift
+
+relationship AutoDetected_8b017998-57f4-49d3-9de0-6a4a70f52db3
+	fromColumn: Production.Shift
+	toColumn: Shifts.Shift
+
+relationship AutoDetected_54cb5ddb-5978-41ce-a8f3-6c96a27af879
+	fromColumn: Downtime.LineID
+	toColumn: Lines.LineID
+
+relationship AutoDetected_3ecf4c33-b2a1-4bf4-8b3a-2c4b98cad08e
+	fromColumn: Production.LineID
+	toColumn: Lines.LineID
+
+relationship AutoDetected_9b7224f6-39e2-4eb3-967a-189600736ccb
+	fromColumn: Targets.LineID
+	toColumn: Lines.LineID
+
+relationship AutoDetected_ca2e2d36-b26c-4475-b5a4-5a0cffb94f4f
+	fromColumn: Production.ProductID
+	toColumn: Products.ProductID
+
+relationship 678b066d-61a7-df97-07c7-b2ff2e8c8507
+	fromColumn: Production.ProductionDate
+	toColumn: Date.Date
+
+relationship 50dee747-36eb-321a-a3ee-f564f4d2964d
+	fromColumn: Downtime.Date
+	toColumn: Date.Date
+
+relationship 02d8f317-093f-7776-eb6b-2b77d9ada1ad
+	fromColumn: Targets.Month
+	toColumn: Date.Date
+

@@ -1,0 +1,7 @@
+LineID,LineName,Department,Building
+L1,Line 1 - Machining,Machining,Building A
+L2,Line 2 - Machining,Machining,Building A
+L3,Line 3 - Assembly,Assembly,Building B
+L4,Line 4 - Assembly,Assembly,Building B
+L5,Line 5 - Cleaning & Coating,Finishing,Building C
+L6,Line 6 - Test & Pack,Finishing,Building C

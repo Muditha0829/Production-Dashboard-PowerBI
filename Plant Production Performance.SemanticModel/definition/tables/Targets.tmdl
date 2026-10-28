@@ -1,0 +1,79 @@
+table Targets
+	lineageTag: 3be8d88c-b024-456b-9e16-0faab9a66180
+
+	column LineID
+		dataType: string
+		lineageTag: 522432b7-8386-4ced-afc9-184ca2c2c394
+		summarizeBy: none
+		sourceColumn: LineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9367e33f-28a8-479c-b0e7-f296ad2476d2
+		summarizeBy: none
+		sourceColumn: Month
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TargetGoodUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: 44ac3a1b-3733-4e1d-9fcc-55cb3b1820ca
+		summarizeBy: sum
+		sourceColumn: TargetGoodUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column TargetScrapRate
+		dataType: double
+		lineageTag: 65d7aef0-b1eb-4a0b-8cd7-46feaca8963a
+		summarizeBy: sum
+		sourceColumn: TargetScrapRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TargetOEE
+		dataType: double
+		lineageTag: ca6268e0-aafe-417b-a29b-ad3f1af7cce3
+		summarizeBy: sum
+		sourceColumn: TargetOEE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BudgetCost
+		dataType: int64
+		formatString: 0
+		lineageTag: 7053f810-6772-4f83-a37c-98ccc1aba09e
+		summarizeBy: sum
+		sourceColumn: BudgetCost
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Targets = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\Targets.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LineID", type text}, {"Month", type date}, {"TargetGoodUnits", Int64.Type}, {"TargetScrapRate", type number}, {"TargetOEE", type number}, {"BudgetCost", Int64.Type}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type"),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Removed Duplicates", {{"Month", type text}}, "en-US"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type with Locale",{{"BudgetCost", Int64.Type}, {"TargetOEE", type number}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

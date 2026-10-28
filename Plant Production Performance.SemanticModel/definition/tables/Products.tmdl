@@ -1,0 +1,66 @@
+table Products
+	lineageTag: 784d9982-d135-48bd-9ce9-d53518f86c0f
+
+	column ProductID
+		dataType: string
+		lineageTag: f205d6e8-f4b5-4df1-b349-924d400e8034
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 8450422c-4ae8-4d2f-81c8-59f83de192b0
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductFamily
+		dataType: string
+		lineageTag: dcef2969-9ffa-4ff4-8ccc-300934a49dd7
+		summarizeBy: none
+		sourceColumn: ProductFamily
+
+		annotation SummarizationSetBy = Automatic
+
+	column StandardPrice
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 88987e18-91a6-4883-95f5-5442bb43f244
+		summarizeBy: none
+		sourceColumn: StandardPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column StandardCost
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 8b09d34f-cd13-40d8-ae40-a369efb6be3d
+		summarizeBy: none
+		sourceColumn: StandardCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition Products = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\Products.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductID", type text}, {"ProductName", type text}, {"ProductFamily", type text}, {"StandardPrice", type number}, {"StandardCost", type number}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Changed Type",{{"ProductID", Text.Clean, type text}, {"ProductName", Text.Clean, type text}, {"ProductFamily", Text.Clean, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Cleaned Text",{{"ProductID", Text.Trim, type text}, {"ProductName", Text.Trim, type text}, {"ProductFamily", Text.Trim, type text}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Trimmed Text",{{"StandardPrice", Currency.Type}, {"StandardCost", Currency.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

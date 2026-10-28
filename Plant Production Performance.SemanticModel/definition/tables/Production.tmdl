@@ -1,0 +1,125 @@
+table Production
+	lineageTag: 67b5cd0c-f22a-4201-83ae-30b65f55f1a4
+
+	column RunID
+		dataType: string
+		lineageTag: fa151275-3183-435b-8fee-fdfd1042ac88
+		summarizeBy: none
+		sourceColumn: RunID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductionDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b63fc46f-a319-41c9-a755-276a9c29e7fa
+		summarizeBy: none
+		sourceColumn: ProductionDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LineID
+		dataType: string
+		lineageTag: 6611a2ac-4cc9-4e98-b3bb-f05175c80b7e
+		summarizeBy: none
+		sourceColumn: LineID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shift
+		dataType: string
+		lineageTag: 840a9c2f-acda-43f3-a143-9678d3fa396b
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: string
+		lineageTag: cd67a860-ed56-49ca-8e18-afa77428d9a1
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column OperatorID
+		dataType: string
+		lineageTag: 62991009-9ed1-4ec8-a011-428822e80ff2
+		summarizeBy: none
+		sourceColumn: OperatorID
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlannedUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: ff587d91-954f-4c89-8d87-24f5057762f0
+		summarizeBy: sum
+		sourceColumn: PlannedUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitsProduced
+		dataType: int64
+		formatString: 0
+		lineageTag: ff3b190d-1746-459f-a99f-0ca8d202512a
+		summarizeBy: sum
+		sourceColumn: UnitsProduced
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScrapUnits
+		dataType: int64
+		formatString: 0
+		lineageTag: 9615158c-5d19-4937-97a7-08f1a6d54328
+		summarizeBy: sum
+		sourceColumn: ScrapUnits
+
+		annotation SummarizationSetBy = Automatic
+
+	column PlannedMinutes
+		dataType: int64
+		formatString: 0
+		lineageTag: c6e2b919-239d-46d1-b421-52186ce5b345
+		summarizeBy: sum
+		sourceColumn: PlannedMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column RunMinutes
+		dataType: int64
+		formatString: 0
+		lineageTag: 24d162af-fa48-4fa1-a8c7-3e38b06a9639
+		summarizeBy: sum
+		sourceColumn: RunMinutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column IdealRatePerHour
+		dataType: int64
+		formatString: 0
+		lineageTag: b30b625a-b67e-429c-978e-96ab9200bf72
+		summarizeBy: sum
+		sourceColumn: IdealRatePerHour
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Production = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mudi\Documents\My PBI\Datasets\UCT_Style_Production_Dataset\Production.csv"),[Delimiter=",", Columns=12, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"RunID", type text}, {"ProductionDate", type date}, {"LineID", type text}, {"Shift", type text}, {"ProductID", type text}, {"OperatorID", type text}, {"PlannedUnits", Int64.Type}, {"UnitsProduced", Int64.Type}, {"ScrapUnits", Int64.Type}, {"PlannedMinutes", Int64.Type}, {"RunMinutes", Int64.Type}, {"IdealRatePerHour", Int64.Type}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Changed Type"),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Duplicates","","Unknown",Replacer.ReplaceValue,{"OperatorID"}),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Replaced Value", {{"ProductionDate", type date}}, "en-US")
+				in
+				    #"Changed Type with Locale"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
