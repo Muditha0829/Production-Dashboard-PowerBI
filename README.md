@@ -4,7 +4,7 @@ A one-page Power BI dashboard that tracks production output, quality, downtime a
 
 > **Note:** All data in this project is **synthetic** (generated for practice). It does not contain any real company data.
 
-![Dashboard](dashboard.png)
+![Dashboard](Dashboard.png)
 
 ## Business questions answered
 - Are we hitting our monthly production targets?
