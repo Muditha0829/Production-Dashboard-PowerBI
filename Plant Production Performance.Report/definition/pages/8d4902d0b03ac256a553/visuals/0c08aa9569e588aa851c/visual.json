@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0c08aa9569e588aa851c",
+  "position": {
+    "x": 725.40192926045017,
+    "y": 442.95819935691316,
+    "z": 1003,
+    "height": 512.41157556270093,
+    "width": 1009.3890675241157,
+    "tabOrder": 1003
+  },
+  "visual": {
+    "visualType": "waterfallChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lines"
+                    }
+                  },
+                  "Property": "LineName"
+                }
+              },
+              "queryRef": "Lines.LineName",
+              "nativeQueryRef": "LineName",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gap to Target"
+                }
+              },
+              "queryRef": "_Measures.Gap to Target",
+              "nativeQueryRef": "Gap to Target"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Gap to Target"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4c85c7878c7a8c297001",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lines"
+              }
+            },
+            "Property": "LineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e9ed9ef5e7441e02e455",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Gap to Target"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
