@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "33124cf983519aa8cc62",
+  "position": {
+    "x": 23.15112540192926,
+    "y": 634.3408360128617,
+    "z": 3000,
+    "height": 325.65916398713824,
+    "width": 583.40836012861735,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lines"
+                    }
+                  },
+                  "Property": "LineName"
+                }
+              },
+              "queryRef": "Lines.LineName",
+              "nativeQueryRef": "LineName"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Units Produced"
+                }
+              },
+              "queryRef": "_Measures.Units Produced",
+              "nativeQueryRef": "Units Produced"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Scrap Units"
+                }
+              },
+              "queryRef": "_Measures.Scrap Units",
+              "nativeQueryRef": "Scrap Units"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Scrap Rate %"
+                }
+              },
+              "queryRef": "_Measures.Scrap Rate %",
+              "nativeQueryRef": "Scrap Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "OEE"
+                }
+              },
+              "queryRef": "_Measures.OEE",
+              "nativeQueryRef": "OEE"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "3a69a8f39ab4a28912dc",
+  "position": {
+    "x": 23,
+    "y": 476,
+    "z": 1,
+    "height": 321,
+    "width": 1068,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date"
+                    }
+                  },
+                  "Property": "MonthNum"
+                }
+              },
+              "queryRef": "Date.MonthNum",
+              "nativeQueryRef": "MonthNum",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Good Units"
+                }
+              },
+              "queryRef": "_Measures.Good Units",
+              "nativeQueryRef": "Good Units"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Good Units LY"
+                }
+              },
+              "queryRef": "_Measures.Good Units LY",
+              "nativeQueryRef": "Good Units LY"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Good Units"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fa9c972c80e7a445e27d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Date"
+              }
+            },
+            "Property": "MonthNum"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9456e3552346509e8909",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Good Units"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "925e68d5a8466414a48c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Good Units LY"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

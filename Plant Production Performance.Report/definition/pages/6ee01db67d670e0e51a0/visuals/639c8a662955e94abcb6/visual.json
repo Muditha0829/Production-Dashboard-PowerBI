@@ -55,23 +55,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "43eaec8e42e9c30b3b2e",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Shifts"
-              }
-            },
-            "Property": "Shift"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

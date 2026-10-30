@@ -32,7 +32,7 @@ table Date
 
 	column Month
 		dataType: dateTime
-		formatString: Long Date
+		formatString: mmmm yyyy
 		lineageTag: b3b0140f-bf47-46f4-a62e-317f2b0caf54
 		summarizeBy: none
 		isNameInferred
@@ -42,6 +42,8 @@ table Date
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
 
 	column MonthKey
 		lineageTag: a600dd06-5b6b-4385-a28c-0b1f24ccbc3c

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "cc797344c832c3184a8e",
+  "position": {
+    "x": 50.932475884244369,
+    "y": 442.95819935691316,
+    "z": 1002,
+    "height": 512.41157556270093,
+    "width": 629.7106109324759,
+    "tabOrder": 1002
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lines"
+                    }
+                  },
+                  "Property": "LineName"
+                }
+              },
+              "queryRef": "Lines.LineName",
+              "nativeQueryRef": "LineName",
+              "active": true
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Units Produced"
+                }
+              },
+              "queryRef": "_Measures.Units Produced",
+              "nativeQueryRef": "Units Produced"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Downtime Hrs"
+                }
+              },
+              "queryRef": "_Measures.Downtime Hrs",
+              "nativeQueryRef": "Downtime Hrs",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Scrap Rate %"
+                }
+              },
+              "queryRef": "_Measures.Scrap Rate %",
+              "nativeQueryRef": "Scrap Rate %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "1fdc15ed751ea41ec303",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lines"
+              }
+            },
+            "Property": "LineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "520e2bb95c3503328025",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Downtime Hrs"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "50a12e9368d18007cc95",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Scrap Rate %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "84ebc12d421e740001d5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Units Produced"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

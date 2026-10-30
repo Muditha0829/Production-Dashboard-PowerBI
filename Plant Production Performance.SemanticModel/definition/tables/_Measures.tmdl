@@ -5,16 +5,24 @@ table _Measures
 		formatString: 0
 		lineageTag: e33402c3-3df4-402e-b533-287a61637d6e
 
+		changedProperty = IsHidden
+
 	measure 'Scrap Units' = SUM(Production[ScrapUnits])
 		formatString: 0
 		lineageTag: c73fb8ee-e94d-4650-98d1-231d5ff9c49b
+
+		changedProperty = IsHidden
 
 	measure 'Good Units' = [Units Produced] - [Scrap Units]
 		formatString: 0
 		lineageTag: 9121703f-fb70-4c02-9fe4-dbd25056ce33
 
+		changedProperty = IsHidden
+
 	measure 'Target Good Units' = SUM(Targets[TargetGoodUnits])
 		lineageTag: 1de25183-fa37-4462-b5c8-6b2f0af65b90
+
+		changedProperty = IsHidden
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -22,8 +30,12 @@ table _Measures
 		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: cb563973-b932-47a8-8c1e-b6eae4c864c1
 
+		changedProperty = IsHidden
+
 	measure 'Downtime Hrs' = DIVIDE(SUM(Downtime[Minutes]), 60)
 		lineageTag: d738b0b5-55d1-4891-8ef0-89789164829c
+
+		changedProperty = IsHidden
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -31,9 +43,13 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 8c28af72-4774-44b2-9147-d5b9fdf125ca
 
+		changedProperty = IsHidden
+
 	measure 'Production Cost' = SUMX(Production, Production[UnitsProduced] * RELATED(Products[StandardCost]))
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: bd0ef7d6-0a6e-44bf-9234-a58a1fa60e1c
+
+		changedProperty = IsHidden
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
@@ -41,17 +57,33 @@ table _Measures
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: abc8c3f0-1d3a-4e5c-bbca-3516f66ec3a5
 
+		changedProperty = IsHidden
+
 	measure Performance = DIVIDE(SUMX(Production, Production[UnitsProduced] / Production[IdealRatePerHour] * 60), SUM(Production[RunMinutes]))
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: d781335f-02de-43e1-82c2-dda2fbd43073
+
+		changedProperty = IsHidden
 
 	measure Quality = DIVIDE([Good Units], [Units Produced])
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 8fb73559-f727-4dee-8502-ca958cfd6e94
 
+		changedProperty = IsHidden
+
 	measure OEE = [Availability] * [Performance] * [Quality]
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 3fe37c4f-8ccf-4765-8e14-5612eff20e39
+
+		changedProperty = IsHidden
+
+	measure 'Gap to Target' = [Good Units] - [Target Good Units]
+		formatString: 0
+		lineageTag: 816763ce-127d-40bd-bc2a-117c7ad88ed0
+
+	measure 'Good Units LY' = CALCULATE([Good Units], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: 0
+		lineageTag: b7bcad74-e758-4ac4-a712-1ec77489aca4
 
 	partition _Measures = m
 		mode: import
@@ -62,6 +94,8 @@ table _Measures
 				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
 				in
 				    #"Removed Columns"
+
+	changedProperty = IsHidden
 
 	annotation PBI_ResultType = Table
 
