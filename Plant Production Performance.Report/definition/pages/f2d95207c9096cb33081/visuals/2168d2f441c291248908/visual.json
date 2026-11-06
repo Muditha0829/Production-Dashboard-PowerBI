@@ -67,5 +67,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fe7307ad998bc6044c55",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "OEE"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

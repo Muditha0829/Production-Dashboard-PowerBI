@@ -1,0 +1,18 @@
+Ring SVG = 
+VAR pct   = [Attainment %]
+VAR p     = MIN(MAX(pct, 0), 1)
+VAR C     = 251.33
+VAR dash  = FORMAT(p  C, 0.0)
+VAR col   = SWITCH(TRUE(), pct = 1, #1B8A7A, pct = 0.95, #F2A900, #C62828)
+VAR val   = FORMAT([Units], #,0)
+VAR body =
+    svg xmlns='httpwww.w3.org2000svg' viewBox='0 0 100 100' &
+    circle cx='50' cy='50' r='40' fill='none' stroke='#E8E8E8' stroke-width='9' &
+    circle cx='50' cy='50' r='40' fill='none' stroke=' & col & ' stroke-width='9'  &
+    stroke-dasharray=' & dash &   & C & ' transform='rotate(-90 50 50)' &
+    text x='50' y='44' text-anchor='middle' font-family='Segoe UI' font-size='7' fill='#555'Outputtext &
+    text x='50' y='59' text-anchor='middle' font-family='Segoe UI' font-size='13' font-weight='600' fill='#222' & val & text &
+    line x1='34' y1='64' x2='66' y2='64' stroke=' & col & ' stroke-width='1.5' &
+    svg
+RETURN
+    dataimagesvg+xml;utf8, & SUBSTITUTE(body, #, %23)

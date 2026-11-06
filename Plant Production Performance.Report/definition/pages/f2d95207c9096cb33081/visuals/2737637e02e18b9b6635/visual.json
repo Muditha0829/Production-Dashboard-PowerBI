@@ -71,5 +71,37 @@
       }
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3d7de14e12db8b840abe",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Products"
+              }
+            },
+            "Property": "ProductFamily"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "671d3b89722ca210e969",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Good Units"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

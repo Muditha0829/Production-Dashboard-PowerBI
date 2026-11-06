@@ -3,9 +3,9 @@
   "name": "542aa9f6068037e095ad",
   "position": {
     "x": 23.15112540192926,
-    "y": 145.08038585209002,
+    "y": 26.237942122186492,
     "z": 0,
-    "height": 321.02893890675239,
+    "height": 439.87138263665594,
     "width": 1068.0385852090033,
     "tabOrder": 0
   },
@@ -202,7 +202,7 @@
                   "identityValues": [
                     {
                       "Literal": {
-                        "Value": "'Assembly'"
+                        "Value": "'Finishing'"
                       }
                     }
                   ],
@@ -212,7 +212,7 @@
                       "identityValues": [
                         {
                           "Literal": {
-                            "Value": "'Line 3 - Assembly'"
+                            "Value": "'Line 4 - Assembly'"
                           }
                         }
                       ],
@@ -233,7 +233,7 @@
             "effectiveBarsPerLevel": {
               "expr": {
                 "Literal": {
-                  "Value": "3L"
+                  "Value": "4L"
                 }
               }
             }

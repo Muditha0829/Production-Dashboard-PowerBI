@@ -202,5 +202,37 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "875eb501bc1c9a41a292",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lines"
+              }
+            },
+            "Property": "LineName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3fcc1571e047cc2eaec8",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "OEE"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
